@@ -129,8 +129,8 @@
             <td class="column0 style17 null style17" colspan="7"></td>
           </tr>
           <?php 
-            $query = $this->db->query("SELECT * FROM dept_device WHERE id = '$id'")->row();
-            $query_type = $this->db->query("SELECT * FROM device_type WHERE jenis_id = '$query->type_id'")->row();
+            $query = $this->db->query("SELECT * FROM dimp.dept_device WHERE id = '$id'")->row();
+            $query_type = $this->db->query("SELECT * FROM dimp.device_type WHERE jenis_id = '$query->type_id'")->row();
           ?>
           <tr class="row3">
             <td class="column0 style29 s style30" colspan="2">Mesin</td>
@@ -153,7 +153,7 @@
             <td class="column2 style23 s style24" colspan="5">Kegiatan</td>
           </tr>
           <?php 
-            $query_riwayat =  $this->db2->query("SELECT * FROM kartu_riwayat WHERE kode_mesin = '$query->device_code'")->result_array();
+            $query_riwayat =  $this->db2->query("SELECT * FROM inventorydit.kartu_riwayat WHERE kode_mesin = '$query->device_code'")->result_array();
             $no = 1; 
             foreach($query_riwayat AS $riwayat) : 
           ?>

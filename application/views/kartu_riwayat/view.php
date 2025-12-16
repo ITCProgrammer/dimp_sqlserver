@@ -22,7 +22,7 @@
         <?php 
             //$query = $this->db->query("SELECT * FROM dept_device WHERE NOT dept_code = 'TEM' ORDER BY dept_code ASC")->result_array();
 			//---update
-			$query = $this->db->query("SELECT * FROM dept_device ORDER BY dept_code ASC")->result_array();
+			$query = $this->db->query("SELECT * FROM dimp.dept_device ORDER BY dept_code ASC")->result_array();
             $no = 1;
             $no = 1;
             foreach ($query as $value) :

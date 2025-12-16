@@ -871,7 +871,7 @@ AD0QAAAAAA==
 	$merk=$r['merk'];
 	$type=$r['type'];
 	
-	$sql="select * from device_type where jenis_id=$typeid";
+	$sql="select * from dimp.device_type where jenis_id=$typeid";
 	 $row=$this->db->query($sql)->row_array();
 	 $mesin=$row['jenis'];
 	 
@@ -887,7 +887,7 @@ AD0QAAAAAA==
 		 $tipe=$merk. " ".$type;
   	}
 	
-	$sql2="select * from departments where code='$kodedep'";
+	$sql2="select * from dimp.departments where code='$kodedep'";
 	$depart=$this->db->query($sql2)->row_array();
   ?>
   <table cellpadding=0 cellspacing=0>

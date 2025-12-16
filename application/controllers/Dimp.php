@@ -31,15 +31,16 @@ class Dimp extends CI_Controller{
         {
             // data 
             $devicetype   =   $this->input->post('devicetype');
-            $deptcode   =   $this->input->post('deptcode');
-            $devicecode    =   $this->input->post('devicecode');
+            $deptcode   =    trim($this->input->post('deptcode'));
+            $devicecode    =   trim( $this->input->post('devicecode'));
 			$devicecode2    =   $this->input->post('devicecode2');
-			$tag   =   $this->input->post('tag');
+			$tag   =    trim($this->input->post('tag'));
             $merk    =   $this->input->post('merk');
             $type=   $this->input->post('type');
             $pcconnect =   $this->input->post('pcconnect');
             $madein =   $this->input->post('madein');
-			$productionyear =   $this->input->post('productionyear');
+			// $productionyear =   $this->input->post('productionyear');
+			$productionyear = trim($this->input->post('production_year'));
 			$sn   =   $this->input->post('sn');
 			$capacity   =   $this->input->post('capacity');
 			$mbmerk   =   $this->input->post('mbmerk');
@@ -134,15 +135,16 @@ class Dimp extends CI_Controller{
             $id     =   $this->input->post('id');
             
 			$devicetype   =   $this->input->post('devicetype');
-            $deptcode   =   $this->input->post('deptcode');
-            $devicecode    =   $this->input->post('devicecode');
+            $deptcode   =    trim($this->input->post('deptcode'));
+            $devicecode    =    trim($this->input->post('devicecode'));
 			$devicecode2    =   $this->input->post('devicecode2');
-			$tag   =   $this->input->post('tag');
+			$tag   =   trim( $this->input->post('tag'));
             $merk    =   $this->input->post('merk');
             $type=   $this->input->post('type');
             $pcconnect =   $this->input->post('pcconnect');
             $madein =   $this->input->post('madein');
-			$productionyear =   $this->input->post('productionyear');
+			// $productionyear =   $this->input->post('productionyear');
+			$productionyear = trim($this->input->post('production_year'));
 			$sn   =   $this->input->post('sn');
 			$capacity   =   $this->input->post('capacity');
 			$mbmerk   =   $this->input->post('mbmerk');
@@ -229,15 +231,35 @@ class Dimp extends CI_Controller{
             $this->template->load('template', $this->folder.'/edit',$data);
         }
     }
-    function delete()
-    {
-        $id     =  $this->input->post('id');
-        $this->mcrud->delete($this->tables,  $this->pk,  $id);
- 		//$this->mcrud->delete($this->tables2,  $this->pk,  $id);
+    // function delete()
+    // {
+    //     $id     =  $this->input->post('id');
+    //     $this->mcrud->delete($this->tables,  $this->pk,  $id);
+ 	// 	//$this->mcrud->delete($this->tables2,  $this->pk,  $id);
+	// 	redirect($this->uri->segment(1));
+    // }
+
+	function delete($id = null)
+	{
+		// ambil dari POST atau dari URL segment ke-3
+		$id = $id ?? $this->input->post('id') ?? $this->uri->segment(3);
+
+		if (empty($id)) {
+			show_error('ID kosong. Pastikan delete mengirim POST id atau URL /delete/{id}');
+		}
+
+		$this->mcrud->delete($this->tables, $this->pk, $id);
+
+		// cek benar-benar kehapus atau tidak
+		if ($this->db->affected_rows() == 0) {
+			show_error("Tidak ada data terhapus. Cek: PK={$this->pk}, ID={$id}, TABLE={$this->tables}");
+		}
+
 		redirect($this->uri->segment(1));
-    }
-    
-   function cetak()
+	}
+
+
+	function cetak()
     {
 		$id          =  $this->uri->segment(3);
 		

@@ -17,8 +17,8 @@
 |
 */
 //$config['base_url']	= 'http://10.0.0.10/dimp/';
-$config['base_url'] = 'https://online.indotaichen.com/dimp/';
-// $config['base_url'] = 'http://10.0.5.41/dimp/';
+// $config['base_url'] = 'https://online.indotaichen.com/dimp/';
+$config['base_url'] = 'http://10.0.5.41/dimp_sqlserver/';
 
 /*
 |--------------------------------------------------------------------------

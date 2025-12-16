@@ -26,7 +26,7 @@ class Kartu_riwayat extends CI_Controller
     {
         $data['title'] = $this->title;
         $data['id']    = $id;
-        $query         = $this->db->query("SELECT * FROM dept_device WHERE id = '$id'")->row();
+        $query         = $this->db->query("SELECT * FROM dimp.dept_device WHERE id = '$id'")->row();
 
         $this->load->view('kartu_riwayat/print', $data);
     }
@@ -820,7 +820,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "DIT";
         $data['laporan']    = "laporan_rekap_sta";
         $data['print']      = "print_laporan_rekap_sta";
-        $data['tabel_data'] = "tbl_master_barang_atk_dit";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_dit";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -830,7 +830,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');
-        $data['tabel_data'] = "tbl_master_barang_atk_dit";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_dit";
         $data['wh']          = "M401";
         $data['dept']        = "DIT";
 
@@ -843,7 +843,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "ACC";
         $data['laporan']    = "laporan_rekap_sta_acc";
         $data['print']      = "print_laporan_rekap_sta_acc";
-        $data['tabel_data'] = "tbl_master_barang_atk_acc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_acc";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -853,7 +853,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_acc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_acc";
         $data['wh']          = "M421";
         $data['dept']        = "ACC";
 
@@ -866,7 +866,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "BRS";
         $data['laporan']    = "laporan_rekap_sta_brs";
         $data['print']      = "print_laporan_rekap_sta_brs";
-        $data['tabel_data'] = "tbl_master_barang_atk_brs";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_brs";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -876,7 +876,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_brs";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_brs";
         $data['wh']          = "M403";
         $data['dept']        = "BRS";
 
@@ -889,7 +889,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "CPL";
         $data['laporan']    = "laporan_rekap_sta_cpl";
         $data['print']      = "print_laporan_rekap_sta_cpl";
-        $data['tabel_data'] = "tbl_master_barang_atk_cpl";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_cpl";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -899,7 +899,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_cpl";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_cpl";
         $data['wh']          = "M425";
         $data['dept']        = "CPL";
 
@@ -912,7 +912,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "CQA";
         $data['laporan']    = "laporan_rekap_sta_cqa";
         $data['print']      = "print_laporan_rekap_sta_cqa";
-        $data['tabel_data'] = "tbl_master_barang_atk_cqa";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_cqa";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -922,7 +922,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_cqa";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_cqa";
         $data['wh']          = "M405";
         $data['dept']        = "CQA";
 
@@ -935,7 +935,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "CSR";
         $data['laporan']    = "laporan_rekap_sta_csr";
         $data['print']      = "print_laporan_rekap_sta_csr";
-        $data['tabel_data'] = "tbl_master_barang_atk_csr";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_csr";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -945,7 +945,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_csr";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_csr";
         $data['wh']          = "M422";
         $data['dept']        = "CSR";
 
@@ -958,7 +958,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "DYE";
         $data['laporan']    = "laporan_rekap_sta_dye";
         $data['print']      = "print_laporan_rekap_sta_dye";
-        $data['tabel_data'] = "tbl_master_barang_atk_dye";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_dye";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -968,7 +968,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_dye";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_dye";
         $data['wh']          = "M406";
         $data['dept']        = "DYE";
 
@@ -981,7 +981,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "FIN";
         $data['laporan']    = "laporan_rekap_sta_fin";
         $data['print']      = "print_laporan_rekap_sta_fin";
-        $data['tabel_data'] = "tbl_master_barang_atk_fin";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_fin";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -991,7 +991,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_fin";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_fin";
         $data['wh']          = "M404";
         $data['dept']        = "FIN";
 
@@ -1004,7 +1004,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "FNC";
         $data['laporan']    = "laporan_rekap_sta_fnc";
         $data['print']      = "print_laporan_rekap_sta_fnc";
-        $data['tabel_data'] = "tbl_master_barang_atk_fnc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_fnc";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1014,7 +1014,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_fnc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_fnc";
         $data['wh']          = "M423";
         $data['dept']        = "FNC";
 
@@ -1027,7 +1027,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "GAS";
         $data['laporan']    = "laporan_rekap_sta_gas";
         $data['print']      = "print_laporan_rekap_sta_gas";
-        $data['tabel_data'] = "tbl_master_barang_atk_gas";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_gas";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1037,7 +1037,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_gas";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_gas";
         $data['wh']          = "M424";
         $data['dept']        = "GAS";
 
@@ -1050,7 +1050,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "GDB";
         $data['laporan']    = "laporan_rekap_sta_gdb";
         $data['print']      = "print_laporan_rekap_sta_gdb";
-        $data['tabel_data'] = "tbl_master_barang_atk_gdb";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_gdb";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1060,7 +1060,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_gdb";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_gdb";
         $data['wh']          = "M419";
         $data['dept']        = "GDB";
 
@@ -1073,7 +1073,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "GHS";
         $data['laporan']    = "laporan_rekap_sta_ghs";
         $data['print']      = "print_laporan_rekap_sta_ghs";
-        $data['tabel_data'] = "tbl_master_barang_atk_ghs";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ghs";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1083,7 +1083,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_ghs";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ghs";
         $data['wh']          = "M427";
         $data['dept']        = "GHS";
 
@@ -1096,7 +1096,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "GKG";
         $data['laporan']    = "laporan_rekap_sta_gkg";
         $data['print']      = "print_laporan_rekap_sta_gkg";
-        $data['tabel_data'] = "tbl_master_barang_atk_gkg";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_gkg";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1119,7 +1119,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "HRD";
         $data['laporan']    = "laporan_rekap_sta_hrd";
         $data['print']      = "print_laporan_rekap_sta_hrd";
-        $data['tabel_data'] = "tbl_master_barang_atk_hrd";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_hrd";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1129,7 +1129,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_hrd";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_hrd";
         $data['wh']          = "M411";
         $data['dept']        = "HRD";
 
@@ -1142,7 +1142,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "KNT";
         $data['laporan']    = "laporan_rekap_sta_knt";
         $data['print']      = "print_laporan_rekap_sta_knt";
-        $data['tabel_data'] = "tbl_master_barang_atk_knt";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_knt";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1152,7 +1152,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_knt";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_knt";
         $data['wh']          = "M408";
         $data['dept']        = "KNT";
 
@@ -1165,7 +1165,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "LAB";
         $data['laporan']    = "laporan_rekap_sta_lab";
         $data['print']      = "print_laporan_rekap_sta_lab";
-        $data['tabel_data'] = "tbl_master_barang_atk_lab";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_lab";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1175,7 +1175,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_lab";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_lab";
         $data['wh']          = "M402";
         $data['dept']        = "LAB";
 
@@ -1188,7 +1188,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "MKT";
         $data['laporan']    = "laporan_rekap_sta_mkt";
         $data['print']      = "print_laporan_rekap_sta_mkt";
-        $data['tabel_data'] = "tbl_master_barang_atk_mkt";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_mkt";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1198,7 +1198,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_mkt";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_mkt";
         $data['wh']          = "M416";
         $data['dept']        = "MKT";
 
@@ -1211,7 +1211,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "MNF";
         $data['laporan']    = "laporan_rekap_sta_mnf";
         $data['print']      = "print_laporan_rekap_sta_mnf";
-        $data['tabel_data'] = "tbl_master_barang_atk_mnf";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_mnf";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1221,7 +1221,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_mnf";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_mnf";
         $data['wh']          = "M414";
         $data['dept']        = "MNF";
 
@@ -1244,7 +1244,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_pcs";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_pcs";
         $data['wh']          = "M409";
         $data['dept']        = "PCS";
 
@@ -1257,7 +1257,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "PPC";
         $data['laporan']    = "laporan_rekap_sta_ppc";
         $data['print']      = "print_laporan_rekap_sta_ppc";
-        $data['tabel_data'] = "tbl_master_barang_atk_ppc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ppc";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1267,7 +1267,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_ppc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ppc";
         $data['wh']          = "M415";
         $data['dept']        = "PPC";
 
@@ -1280,7 +1280,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "QAI";
         $data['laporan']    = "laporan_rekap_sta_qai";
         $data['print']      = "print_laporan_rekap_sta_qai";
-        $data['tabel_data'] = "tbl_master_barang_atk_qai";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_qai";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1303,7 +1303,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "QCF";
         $data['laporan']    = "laporan_rekap_sta_qcf";
         $data['print']      = "print_laporan_rekap_sta_qcf";
-        $data['tabel_data'] = "tbl_master_barang_atk_qcf";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_qcf";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1313,7 +1313,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_qcf";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_qcf";
         $data['wh']          = "M407";
         $data['dept']        = "QCF";
 
@@ -1336,7 +1336,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_rmp";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_rmp";
         $data['wh']          = "M417";
         $data['dept']        = "RMP";
 
@@ -1349,7 +1349,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "TAS";
         $data['laporan']    = "laporan_rekap_sta_tas";
         $data['print']      = "print_laporan_rekap_sta_tas";
-        $data['tabel_data'] = "tbl_master_barang_atk_tas";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_tas";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1372,7 +1372,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "TQ";
         $data['laporan']    = "laporan_rekap_sta_tq";
         $data['print']      = "print_laporan_rekap_sta_tq";
-        $data['tabel_data'] = "tbl_master_barang_atk_tq";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_tq";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1382,7 +1382,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_tq";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_tq";
         $data['wh']          = "M407";
         $data['dept']        = "TQ";
 
@@ -1395,7 +1395,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "YND";
         $data['laporan']    = "laporan_rekap_sta_ynd";
         $data['print']      = "print_laporan_rekap_sta_ynd";
-        $data['tabel_data'] = "tbl_master_barang_atk_ynd";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ynd";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1405,7 +1405,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_atk_ynd";
+        $data['tabel_data'] = "dimp.tbl_master_barang_atk_ynd";
         $data['wh']          = "M426";
         $data['dept']        = "YND";
 
@@ -1418,7 +1418,7 @@ class Kartu_riwayat extends CI_Controller
         $data['dept']       = "MTC";
         $data['laporan']    = "laporan_rekap_sta_mtc";
         $data['print']      = "print_laporan_rekap_sta_mtc";
-        $data['tabel_data'] = "tbl_master_barang_stationary_mtc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_stationary_mtc";
 
         $this->template->load('template', $this->folder . '/laporan_rekap_sta', $data);
     }
@@ -1428,7 +1428,7 @@ class Kartu_riwayat extends CI_Controller
         $data['kode_barang'] = $this->input->post('kode_barang');
         $data['date1']       = $this->input->post('date1');
         $data['date2']       = $this->input->post('date2');   
-        $data['tabel_data'] = "tbl_master_barang_stationary_mtc";
+        $data['tabel_data'] = "dimp.tbl_master_barang_stationary_mtc";
         $data['wh']          = "M412";
         $data['dept']        = "MTC";
 
