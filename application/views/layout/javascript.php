@@ -1,0 +1,13 @@
+    <script src="<?php echo base_url() ?>uadmin/js/jquery.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="js/vendor/jquery-1.11.0.min.js"%3E%3C/script%3E'));</script> -->
+    <script src="<?php echo base_url(); ?>uadmin/js/vendor/bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>uadmin/js/plugins.js"></script>
+    <!-- <script src="<?php echo base_url(); ?>uadmin/js/main.js"></script> -->
+    <script src="<?php echo base_url(); ?>assets/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/ui/jquery.ui.core.js"></script>
+	<script src="<?php echo base_url(); ?>assets/ui/jquery.ui.widget.js"></script>
+	<script src="<?php echo base_url(); ?>assets/ui/jquery.ui.datepicker.js"></script>
+    <script src="<?php echo base_url(); ?>assets/ui/select2/select2.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/ui/datatables/datatables.min.js"></script>
+    <script src="<?php echo base_url(); ?>uadmin/js/vendor/modernizr-2.7.1-respond-1.4.2.min.js"></script>
