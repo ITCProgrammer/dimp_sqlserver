@@ -246,7 +246,7 @@ if ( ! function_exists('generatehtml'))
             $data=$CI->db->get_where($table,$kondisi)->result();
         }
         echo"<div class='$class'><select class='form-control' name='".$nama."' $tagtemp>";
-		
+		echo "<option value=''></option>";		
 		if ($value==null)
 		{
 			echo "<option value=''></option>";
