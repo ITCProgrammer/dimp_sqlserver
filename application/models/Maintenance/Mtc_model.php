@@ -65,7 +65,11 @@ class Mtc_model extends CI_Model
     }
 
     public function insert_tmp($array){
-        $this->db->insert_batch('tmp_stock_opname',$array);
+        // bersihkan karakter non-UTF8 agar sqlsrv tidak gagal konversi UTF-16
+        $clean = array_map(function($row){
+            return $this->sanitize_row($row);
+        }, $array);
+        $this->db->insert_batch('tmp_stock_opname',$clean);
     }
 
     public function get_tmp($tmp_id){
@@ -96,6 +100,24 @@ class Mtc_model extends CI_Model
             ->set('konfirmasi_date', $date)
             ->where('id', $id)
             ->update('tmp_stock_opname');
+    }
+
+    /**
+     * Sanitize string to valid UTF-8, dropping invalid bytes to avoid "No mapping for Unicode character" from sqlsrv.
+     */
+    public function sanitize_utf8($value){
+        if (!is_string($value)) {
+            return $value;
+        }
+        $converted = @mb_convert_encoding($value, 'UTF-8', 'UTF-8, ISO-8859-1, Windows-1252');
+        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E\x{A0}-\x{10FFFF}]/u', '', $converted);
+    }
+
+    public function sanitize_row($row){
+        foreach ($row as $key => $val) {
+            $row[$key] = $this->sanitize_utf8($val);
+        }
+        return $row;
     }
 
     public function list_stock_opname(){
