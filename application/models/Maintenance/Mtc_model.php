@@ -103,11 +103,11 @@ class Mtc_model extends CI_Model
             SELECT 
                 date,
                 TMP_ID,
-                user, 
+                [user], 
                 SUM(CASE WHEN konfirmasi=1 THEN 1 ELSE 0 END) as konfirm, 
                 SUM(CASE WHEN COALESCE(edit_date,'') ='' THEN 1 ELSE 0 END) nilai_nol 
-            FROM tmp_stock_opname
-            GROUP BY date,TMP_ID,user 
+            FROM dimp.tmp_stock_opname
+            GROUP BY date,TMP_ID,[user] 
             ORDER BY date ASC");
         return $query;
     }
