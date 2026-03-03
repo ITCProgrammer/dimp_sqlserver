@@ -108,7 +108,19 @@
 
     // Kalau mau makesure kalkulasi stock awal
     // echo $informasi;
-
+	if (empty($data)) {
+        $data[] = [
+            'tanggal'              => '2025-04-11',
+            'stock_awal'           => $stock_awal,
+            'quantity_penerimaan'  => '',
+            'quantity_pengeluaran' => '',
+            'stock_akhir'          => $stock_awal,
+            'surat_jalan'          => '',
+            'nama'                 => '',
+            'paraf'                => '',
+            'keterangan'           => 'Balance per 11 April 2025',
+        ];
+    }
     // List data
     $query_data = "SELECT t.*,a.VALUESTRING as KETERANGAN
         FROM STOCKTRANSACTION t
@@ -130,11 +142,10 @@
         AND t.TRANSACTIONDATE BETWEEN '$tglawal' AND '$tglakhir'
         AND t.TRANSACTIONDATE > '2025-04-11'
         ORDER BY t.TRANSACTIONDATE ASC";
-
-    // echo $query_data;
+		// echo $query_data;
 
     $exec_query_data = db2_exec($conn1, $query_data);
-
+	
     while ($row = db2_fetch_assoc($exec_query_data)) {
 
         $tanggal       = '';
@@ -199,20 +210,7 @@
         $stock_awal = $stock_akhir;
     }
 
-    if (empty($data)) {
-        $data[] = [
-            'tanggal'              => '2025-04-11',
-            'stock_awal'           => $stock_awal,
-            'quantity_penerimaan'  => '',
-            'quantity_pengeluaran' => '',
-            'stock_akhir'          => $stock_awal,
-            'surat_jalan'          => '',
-            'nama'                 => '',
-            'paraf'                => '',
-            'keterangan'           => 'Balance per 11 April 2025',
-        ];
-    }
-
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
