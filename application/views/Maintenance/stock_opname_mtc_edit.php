@@ -67,7 +67,7 @@
                         <td class='text-right'><?= nilaiKeRibuan($row['BASEPRIMARYQUANTITYUNIT']); ?></td>
                         <td class='text-right' id="ts_<?= $row['id']; ?>"><?= $qty_aktual ?></td>
                         <td id="confirm_<?= $row['id']; ?>" ><?=$btn;?></td>
-                        <td class='text-right' id="blc_<?= $row['id']; ?>"><?= nilaiKeRibuan($row['BASEPRIMARYQUANTITYUNIT']-$row['QTY_AKTUAL']); ?></td>
+                        <td class='text-right' id="blc_<?= $row['id']; ?>"><?= nilaiKeRibuan($row['QTY_AKTUAL']-$row['BASEPRIMARYQUANTITYUNIT']); ?></td>
                         <td id="last_<?= $row['id']; ?>" ><?= timestamp_ke_custom($row['edit_date']); ?></td>
                     </tr>
                     <?php 
