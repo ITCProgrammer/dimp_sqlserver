@@ -186,26 +186,14 @@
         body { background: white; }
         table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 12px; }
         th, td { padding: 2px; text-align: center; }
-        table#t01
-		body { background: white; }
-		table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 12px; }
-		th, td { padding: 2px; text-align: center; }
 
-		/* Tambahkan ini supaya Header tetap di atas saat di scroll */
-		#t01 thead th {
-			position: sticky;
-			top: 0; /* Jarak dari atas layar */
-			background-color: #f2f2f2; /* Warna background supaya tidak transparan saat menimpa data */
-			z-index: 10; /* Supaya berada di atas baris data */
-			box-shadow: inset 0 1px 0 black, inset 0 -1px 0 black; /* Pengganti border yang hilang saat sticky */
-		}
-
-		/* Opsional: Jika ingin tabel berada dalam kontainer yang bisa scroll sendiri */
-		.table-container {
-			max-height: 500px;
-			overflow-y: auto;
-			border: 1px solid black;
-		}
+        #t01 thead th {
+            position: sticky;
+            top: 0;
+            background-color: #ffffff;
+            z-index: 10;
+			border : 1px solid black;
+        }
     </style>
 </head>
 <body>
@@ -214,6 +202,7 @@
 <label style="font-weight: bold;">Periode :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo $date1 . " "; ?> s/d<?php echo " " . $date2; ?></label>
 <br><br>
 <table width="100%" border="1" id="t01">
+    <thead>
     <tr>
         <th>NO</th>
         <th>KODE BARANG</th>
@@ -230,6 +219,8 @@
         <th>RATA-RATA PEMAKAIAN 1 THN</th>
         <th>RATA-RATA PEMAKAIAN BULAN BERJALAN</th>
     </tr>
+    </thead>
+    <tbody>
 
 <?php
     $no = 1;
@@ -277,6 +268,7 @@
     <td><?php echo $rata_bulan_berjalan; ?></td>
 </tr>
 <?php }?>
+    </tbody>
 </table>
 
 <!-- Section tanda tangan -->
