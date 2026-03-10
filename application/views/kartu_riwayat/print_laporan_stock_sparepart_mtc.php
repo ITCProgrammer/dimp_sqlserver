@@ -4,6 +4,10 @@
         return rtrim(rtrim(number_format($number, 3, '.', ''), '0'), '.');
     }
 
+	$tahun_sekarang = date('Y');
+	$bulan_sekarang = date('m');
+	$tahun_sebelum = $tahun_sekarang - 1;
+
     date_default_timezone_set('Asia/Jakarta');
     $con = mysqli_connect("10.0.0.10", "dit", "4dm1n", "dimp");
 
@@ -102,6 +106,52 @@
         $stok_keluar_data[$row['KODE_BARANG']] = (int) $row['KELUAR'];
     }
 
+	// Stok Keluar per Tahun
+	$q_tahun = "SELECT
+					TRIM(DECOSUBCODE01)|| '-' || TRIM(DECOSUBCODE02)|| '-' || TRIM(DECOSUBCODE03)|| '-' || TRIM(DECOSUBCODE04)|| '-' || TRIM(DECOSUBCODE05)|| '-' || TRIM(DECOSUBCODE06) AS KODE_BARANG,
+					SUM(USERPRIMARYQUANTITY) AS KELUAR
+				FROM
+					STOCKTRANSACTION
+				WHERE
+					TEMPLATECODE = '201'
+					AND LOGICALWAREHOUSECODE = 'M201'
+					AND YEAR(TRANSACTIONDATE) >= '$tahun_sebelum'
+					AND YEAR(TRANSACTIONDATE) < '$tahun_sekarang'
+				GROUP BY
+					TRIM(DECOSUBCODE01),
+					TRIM(DECOSUBCODE02),
+					TRIM(DECOSUBCODE03),
+					TRIM(DECOSUBCODE04),
+					TRIM(DECOSUBCODE05),
+					TRIM(DECOSUBCODE06)";
+	$stmt_keluar_tahun = db2_exec($conn1, $q_tahun);
+	while ($row = db2_fetch_assoc($stmt_keluar_tahun)) {
+        $stok_tahun[$row['KODE_BARANG']] = (int) $row['KELUAR'];
+    }
+
+	// Stok Keluar per Bulan Berjalan
+	$q_bulan_berjalan = "SELECT
+					TRIM(DECOSUBCODE01)|| '-' || TRIM(DECOSUBCODE02)|| '-' || TRIM(DECOSUBCODE03)|| '-' || TRIM(DECOSUBCODE04)|| '-' || TRIM(DECOSUBCODE05)|| '-' || TRIM(DECOSUBCODE06) AS KODE_BARANG,
+					SUM(USERPRIMARYQUANTITY) AS KELUAR
+				FROM
+					STOCKTRANSACTION
+				WHERE
+					TEMPLATECODE = '201'
+					AND LOGICALWAREHOUSECODE = 'M201'
+					AND YEAR(TRANSACTIONDATE) = '$tahun_sekarang'
+					AND MONTH(TRANSACTIONDATE) <= '$bulan_sekarang'
+				GROUP BY
+					TRIM(DECOSUBCODE01),
+					TRIM(DECOSUBCODE02),
+					TRIM(DECOSUBCODE03),
+					TRIM(DECOSUBCODE04),
+					TRIM(DECOSUBCODE05),
+					TRIM(DECOSUBCODE06)";
+	$stmt_keluar_bulan_berjalan = db2_exec($conn1, $q_bulan_berjalan);
+	while ($row = db2_fetch_assoc($stmt_keluar_bulan_berjalan)) {
+        $pemakaian_bulan_berjalan[$row['KODE_BARANG']] = (int) $row['KELUAR'];
+    }
+
     // --- Ambil semua zone location
     $q_zone_location = db2_exec($conn1, "
     SELECT
@@ -137,10 +187,28 @@
         table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 12px; }
         th, td { padding: 2px; text-align: center; }
         table#t01
+		body { background: white; }
+		table, th, td { border: 1px solid black; border-collapse: collapse; font-size: 12px; }
+		th, td { padding: 2px; text-align: center; }
+
+		/* Tambahkan ini supaya Header tetap di atas saat di scroll */
+		#t01 thead th {
+			position: sticky;
+			top: 0; /* Jarak dari atas layar */
+			background-color: #f2f2f2; /* Warna background supaya tidak transparan saat menimpa data */
+			z-index: 10; /* Supaya berada di atas baris data */
+			box-shadow: inset 0 1px 0 black, inset 0 -1px 0 black; /* Pengganti border yang hilang saat sticky */
+		}
+
+		/* Opsional: Jika ingin tabel berada dalam kontainer yang bisa scroll sendiri */
+		.table-container {
+			max-height: 500px;
+			overflow-y: auto;
+			border: 1px solid black;
+		}
     </style>
 </head>
 <body>
-
 <label style="font-weight: bold;">LAPORAN STOCK</label><br>
 <label><u>DEPARTEMEN MTC</u></label><br>
 <label style="font-weight: bold;">Periode :                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <?php echo $date1 . " "; ?> s/d<?php echo " " . $date2; ?></label>
@@ -159,6 +227,8 @@
         <th>STOK AKHIR</th>
         <th>ZONE - LOCATION</th>
         <th>CATATAN</th>
+        <th>RATA-RATA PEMAKAIAN 1 THN</th>
+        <th>RATA-RATA PEMAKAIAN BULAN BERJALAN</th>
     </tr>
 
 <?php
@@ -166,6 +236,8 @@
     while ($row = mysqli_fetch_assoc($query_barang)) {
         $kode_barang = $row['KODE_BARANG'];
         $stok_awal   = (int) ($row['STOCK'] ?? 0);
+		$stokper_tahun	 = $stok_tahun[$kode_barang] ?? 0;
+		$stokper_bulan_berjalan = $pemakaian_bulan_berjalan[$kode_barang] ?? 0;
 
         $masuk_awal  = $stok_awal_masuk[$kode_barang] ?? 0;
         $keluar_awal = $stok_awal_keluar[$kode_barang] ?? 0;
@@ -174,6 +246,9 @@
         $masuk  = $stok_masuk_data[$kode_barang] ?? 0;
         $keluar = $stok_keluar_data[$kode_barang] ?? 0;
 
+		$rata_tahun = $stokper_tahun > 0 ? ceil($stokper_tahun / 12) : 0;
+		$rata_bulan_berjalan = $stokper_bulan_berjalan > 0 ? ceil($stokper_bulan_berjalan/$bulan_sekarang) : 0;
+		
         // Kondisi item yang stock awal, masuk , keluar sama
         if ($stok_awal === $masuk && $masuk === $keluar) {
             $stok_awal = 0;
@@ -198,6 +273,8 @@
     <td><?php echo $stok_akhir; ?></td>
     <td style="text-align: left;"><?php echo $zone; ?></td>
     <td></td>
+    <td><?php echo $rata_tahun; ?></td>
+    <td><?php echo $rata_bulan_berjalan; ?></td>
 </tr>
 <?php }?>
 </table>
