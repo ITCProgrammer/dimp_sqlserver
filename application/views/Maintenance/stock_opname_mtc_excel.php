@@ -74,7 +74,7 @@
                         <td class='number'><?= $row['BASEPRIMARYQUANTITYUNIT']; ?></td>
                         <td class='number'><?= $row['QTY_AKTUAL'] ?></td>
                         <td ><?=$konfirm;?></td>
-                        <td class='number'><?= ($row['BASEPRIMARYQUANTITYUNIT']-$row['QTY_AKTUAL']); ?></td>
+                        <td class='number'><?= ($row['QTY_AKTUAL']-$row['BASEPRIMARYQUANTITYUNIT']); ?></td>
                         <td ><?= timestamp_ke_custom($row['edit_date']); ?></td>
                     </tr>
                     <?php 
