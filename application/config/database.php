@@ -165,7 +165,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn' => '',
-	'hostname' => '10.0.0.221',
+	'hostname' => 'sql-db-prd.indotaichen.com',
 	'username' => 'sa',
 	'password' => 'Ind@taichen2024',
 	'database' => 'dimp',
@@ -187,7 +187,7 @@ $db['default'] = array(
 
 $db['inventorydit'] = array(
 	'dsn' => '',
-	'hostname' => '10.0.0.221',
+	'hostname' => 'sql-db-prd.indotaichen.com',
 	'username' => 'sa',
 	'password' => 'Ind@taichen2024',
 	'database' => 'inventorydit',
@@ -210,7 +210,7 @@ $db['inventorydit'] = array(
 
 $db['now'] = array(
 	'dsn'	=> '',
-	'hostname' => '10.0.0.21',
+	'hostname' => 'db2-db-prd.indotaichen.com',
 	'username' => 'db2admin',
 	'password' => 'Sunkam@24809',
 	'database' => 'NOWPRD',
