@@ -107,15 +107,16 @@
     }
 
 	// Stok Keluar per Tahun
-	$q_tahun = "SELECT
+    $tahun_awal=2025;
+	$q_keluar_pertahun = "SELECT
 					TRIM(DECOSUBCODE01)|| '-' || TRIM(DECOSUBCODE02)|| '-' || TRIM(DECOSUBCODE03)|| '-' || TRIM(DECOSUBCODE04)|| '-' || TRIM(DECOSUBCODE05)|| '-' || TRIM(DECOSUBCODE06) AS KODE_BARANG,
-					SUM(USERPRIMARYQUANTITY) AS KELUAR
+					SUM(USERPRIMARYQUANTITY) AS KELUAR,YEAR(TRANSACTIONDATE) AS TAHUN
 				FROM
 					STOCKTRANSACTION
 				WHERE
 					TEMPLATECODE = '201'
 					AND LOGICALWAREHOUSECODE = 'M201'
-					AND YEAR(TRANSACTIONDATE) >= '$tahun_sebelum'
+					AND YEAR(TRANSACTIONDATE) >= $tahun_awal
 					AND YEAR(TRANSACTIONDATE) < '$tahun_sekarang'
 				GROUP BY
 					TRIM(DECOSUBCODE01),
@@ -123,33 +124,34 @@
 					TRIM(DECOSUBCODE03),
 					TRIM(DECOSUBCODE04),
 					TRIM(DECOSUBCODE05),
-					TRIM(DECOSUBCODE06)";
-	$stmt_keluar_tahun = db2_exec($conn1, $q_tahun);
-	while ($row = db2_fetch_assoc($stmt_keluar_tahun)) {
-        $stok_tahun[$row['KODE_BARANG']] = (int) $row['KELUAR'];
+					TRIM(DECOSUBCODE06),
+					YEAR(TRANSACTIONDATE)";
+	$stmt_keluar_pertahun = db2_exec($conn1, $q_keluar_pertahun);
+	while ($row = db2_fetch_assoc($stmt_keluar_pertahun)) {
+        $stok_pertahun[$row['KODE_BARANG']][$row['TAHUN']] = (int) $row['KELUAR'];
     }
 
-	// Stok Keluar per Bulan Berjalan
-	$q_bulan_berjalan = "SELECT
+    // Stok Keluar per Bulan
+	$q_keluar_perbulan = "SELECT
 					TRIM(DECOSUBCODE01)|| '-' || TRIM(DECOSUBCODE02)|| '-' || TRIM(DECOSUBCODE03)|| '-' || TRIM(DECOSUBCODE04)|| '-' || TRIM(DECOSUBCODE05)|| '-' || TRIM(DECOSUBCODE06) AS KODE_BARANG,
-					SUM(USERPRIMARYQUANTITY) AS KELUAR
+					SUM(USERPRIMARYQUANTITY) AS KELUAR,MONTH(TRANSACTIONDATE) AS BULAN
 				FROM
 					STOCKTRANSACTION
 				WHERE
 					TEMPLATECODE = '201'
 					AND LOGICALWAREHOUSECODE = 'M201'
 					AND YEAR(TRANSACTIONDATE) = '$tahun_sekarang'
-					AND MONTH(TRANSACTIONDATE) <= '$bulan_sekarang'
 				GROUP BY
 					TRIM(DECOSUBCODE01),
 					TRIM(DECOSUBCODE02),
 					TRIM(DECOSUBCODE03),
 					TRIM(DECOSUBCODE04),
 					TRIM(DECOSUBCODE05),
-					TRIM(DECOSUBCODE06)";
-	$stmt_keluar_bulan_berjalan = db2_exec($conn1, $q_bulan_berjalan);
-	while ($row = db2_fetch_assoc($stmt_keluar_bulan_berjalan)) {
-        $pemakaian_bulan_berjalan[$row['KODE_BARANG']] = (int) $row['KELUAR'];
+					TRIM(DECOSUBCODE06),
+					MONTH(TRANSACTIONDATE)";
+	$stmt_keluar_perbulan = db2_exec($conn1, $q_keluar_perbulan);
+	while ($row = db2_fetch_assoc($stmt_keluar_perbulan)) {
+        $stok_perbulan[$row['KODE_BARANG']][$row['BULAN']] = (int) $row['KELUAR'];
     }
 
     // --- Ambil semua zone location
@@ -173,6 +175,17 @@
         if (! in_array($location, $zone_location_data[$kode])) {
             $zone_location_data[$kode][] = $location;
         }
+    }
+
+    // --- Data Nama Barang dari NOW
+    $q_nama_barang= db2_exec($conn1, "SELECT 
+					TRIM(SUBCODE01)||'-'||TRIM(SUBCODE02)||'-'||TRIM(SUBCODE03)||'-'||TRIM(SUBCODE04)||'-'||TRIM(SUBCODE05)||'-'||TRIM(SUBCODE06) AS KODE_BARANG,LONGDESCRIPTION
+				FROM PRODUCT
+				WHERE ITEMTYPECODE ='SPR'
+				AND SUBCODE01='MTC' ");
+
+    while ($row = db2_fetch_assoc($q_nama_barang)) {
+        $data_nama_barang[$row['KODE_BARANG']] = $row['LONGDESCRIPTION'];
     }
 
 ?>
@@ -216,8 +229,19 @@
         <th>STOK AKHIR</th>
         <th>ZONE - LOCATION</th>
         <th>CATATAN</th>
-        <th>RATA-RATA PEMAKAIAN 1 THN</th>
-        <th>RATA-RATA PEMAKAIAN BULAN BERJALAN</th>
+        <?php
+            $bulan_saat_ini= date('n');
+            for($i=1;$i<=$bulan_saat_ini;$i++){
+                $bln=$bulan_saat_ini-$i;
+                echo "<th style='width: 42px;'>".date('M-y', strtotime("-$bln months"))."</th>";
+            }
+        ?>
+        <?php
+            for($thn=$tahun_awal;$thn<$tahun_sekarang;$thn++){
+                echo "<th>RATA-RATA PEMAKAIAN $thn</th>";
+            }
+        ?>
+        <th>RATA-RATA PEMAKAIAN BULAN</th>
     </tr>
     </thead>
     <tbody>
@@ -227,8 +251,6 @@
     while ($row = mysqli_fetch_assoc($query_barang)) {
         $kode_barang = $row['KODE_BARANG'];
         $stok_awal   = (int) ($row['STOCK'] ?? 0);
-		$stokper_tahun	 = $stok_tahun[$kode_barang] ?? 0;
-		$stokper_bulan_berjalan = $pemakaian_bulan_berjalan[$kode_barang] ?? 0;
 
         $masuk_awal  = $stok_awal_masuk[$kode_barang] ?? 0;
         $keluar_awal = $stok_awal_keluar[$kode_barang] ?? 0;
@@ -236,9 +258,9 @@
 
         $masuk  = $stok_masuk_data[$kode_barang] ?? 0;
         $keluar = $stok_keluar_data[$kode_barang] ?? 0;
+        //cek now apakah ada datanya, jika tidak ambil dari data local
+        $nama_barang=$data_nama_barang[$kode_barang] ?? $row['NAMA_BARANG'];
 
-		$rata_tahun = $stokper_tahun > 0 ? ceil($stokper_tahun / 12) : 0;
-		$rata_bulan_berjalan = $stokper_bulan_berjalan > 0 ? ceil($stokper_bulan_berjalan/$bulan_sekarang) : 0;
 		
         // Kondisi item yang stock awal, masuk , keluar sama
         if ($stok_awal === $masuk && $masuk === $keluar) {
@@ -254,7 +276,7 @@
 <tr>
     <td><?php echo $no++; ?></td>
     <td style="text-align: left;"><?php echo $kode_barang; ?></td>
-    <td style="text-align: left;"><?php echo $row['NAMA_BARANG']; ?></td>
+    <td style="text-align: left;"><?php echo $nama_barang; ?></td>
     <td><?php echo $row['STOCK_MINIMUM']; ?></td>
     <td><?php echo $stok_awal; ?></td>
     <td><?php echo $row['UNIT']; ?></td>
@@ -264,8 +286,21 @@
     <td><?php echo $stok_akhir; ?></td>
     <td style="text-align: left;"><?php echo $zone; ?></td>
     <td></td>
-    <td><?php echo $rata_tahun; ?></td>
-    <td><?php echo $rata_bulan_berjalan; ?></td>
+    <?php
+        $total_pakai=0;
+        for($i=1;$i<=$bulan_saat_ini;$i++){
+            $pakai=($stok_perbulan[$kode_barang][$i]??0);
+            $total_pakai+=$pakai;
+            echo "<td>".$pakai."</td>";
+        }
+    ?>
+    <?php
+        for($thn=$tahun_awal;$thn<$tahun_sekarang;$thn++){
+            $pakai=($stok_pertahun[$kode_barang][$thn]??0);
+            echo "<td>".$pakai."</td>";
+        }
+    ?>
+    <td><?php echo floatval($total_pakai/$bulan_saat_ini); ?></td>
 </tr>
 <?php }?>
     </tbody>
