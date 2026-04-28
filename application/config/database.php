@@ -210,7 +210,7 @@ $db['inventorydit'] = array(
 
 $db['now'] = array(
 	'dsn'	=> '',
-	'hostname' => 'db2-db-prd.indotaichen.com',
+	'hostname' => '10.0.0.21',
 	'username' => 'db2admin',
 	'password' => 'Sunkam@24809',
 	'database' => 'NOWPRD',
